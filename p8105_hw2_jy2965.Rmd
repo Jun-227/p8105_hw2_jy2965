@@ -1,0 +1,24 @@
+---
+title: "p8105_hw2_jy2965"
+author: "Jun"
+date: "9/28/2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+```
+
+## Problem 1
+
+# read and clean data
+```{r}
+trash_data = read_excel("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx") %>% 
+  janitor::clean_names()
+
+
+```
+
+
