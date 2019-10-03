@@ -15,9 +15,8 @@ library(readxl)
 
 # read and clean data
 ```{r}
-trash_data = read_excel("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx") %>% 
+trash_data = read_excel("./data/Trash-Wheel-Collection-Totals-8-6-19.xlsx") %>% 
   janitor::clean_names()
-
 
 ```
 
