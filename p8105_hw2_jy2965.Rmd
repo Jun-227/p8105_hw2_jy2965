@@ -9,15 +9,26 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(readxl)
+library(tidyr)
 ```
 
 ## Problem 1
 
 # read and clean data
+**Mr. Trash Wheel sheet**
 ```{r}
-trash_data = read_excel("./data/Trash-Wheel-Collection-Totals-8-6-19.xlsx") %>% 
-  janitor::clean_names()
-
+trash_data = read_excel("./data/Trash-Wheel-Collection-Totals-8-6-19.xlsx","Mr. Trash Wheel", range = "A2:N408" )  %>% 
+  janitor::clean_names() %>% 
+  rename(weight= weight_tons, volume = volume_cubic_yards) %>% 
+  drop_na(dumpster) %>% 
+  mutate(
+    sports_balls = round(sports_balls, digits = 0),
+    sports_balls = as.integer(sports_balls)
+)
 ```
-
+In above chunck, I managed to do:
+1.specify the sheet in the Excel file and to omit non-data entries (rows with notes / figures; columns containing notes) using arguments in read_excel
+2.use reasonable variable names
+3.omit rows that do not include dumpster-specific data
+4.round the number of sports balls to the nearest integer and converts the result to an integer variable (using as.integer)
 
