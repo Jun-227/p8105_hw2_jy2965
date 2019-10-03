@@ -50,7 +50,7 @@ combine_precipitation = bind_rows(precipitation_2017,precipitation_2018) %>%
   mutate(month = month.name[month]) %>% 
   select(year, everything())
 ```
-
+**description**
 The dataset "trash_data" contains the data from the first sheet of the "Trash-Wheel-Collection-Totals-8-6-19.xlsx" file. This data has `r nrow(trash_data)` rows, `r ncol(trash_data)` columns and `r nrow(trash_data)` observations. Besides, this dataset has `r ncol(trash_data)` variables. Taking "weight" as an example, dumpster1 collected 4.31 tons of trash on May 16th, 2014.
 
 The dataset "combine_precipitation" combines the data from "2017 precipitation" and "2018 preciptation" sheet of the "Trash-Wheel-Collection-Totals-8-6-19.xlsx" file. This data has `r nrow(combine_precipitation)` rows, `r ncol(combine_precipitation)` colums and `r nrow(combine_precipitation)` observations. Besides, this dataset has `r ncol(combine_precipitation)` variables. For example, the total precipetation in January 2017 is 2.34.
@@ -74,7 +74,7 @@ pols_month = read_csv(file = "./data/pols-month.csv") %>%
 ```{r}
 snp_data = read_csv(file = "./data/snp.csv") %>% 
   janitor::clean_names() %>% 
-  separate(date, into = c("day", "month", "year"), sep = "/") %>% 
+  separate(date, into = c("month", "day", "year"), sep = "/") %>% 
   mutate(month = month.name[as.integer(month)]) %>% 
   select(year, month, close)
 ```
@@ -84,11 +84,23 @@ unemployment_data = read_csv(file = "./data/unemployment.csv") %>%
   janitor::clean_names() %>% 
   rename(January = jan, February = feb, March = mar, April = apr, 
          May = may, June = jun, July = jul, August = aug, September=sep, October = oct, November = nov, December = dec) %>% 
-  pivot_longer(January:December, names_to = "month", values_to = "unemployment")
+  pivot_longer(January:December, names_to = "month", values_to = "unemployment") %>% 
+mutate(
+  year=as.character(year)
+)
 ```
-**merge variables**
+**merge dataset**
 ```{r}
-merge_data_test = left_join(pols_month,snp_data, by = c("year","month"))
+merge_data = left_join(pols_month, snp_data, by = c("year","month"))
+
+merge_data_new = left_join(merge_data, unemployment_data, by = c("year","month"))
 ```
 
+**description**
+The dataset "pols_month" contains the data from the "pols-month.csv" file, collecting data from `r range(pols_month$year)`. This data has `r nrow(pols_month)` rows, `r ncol(pols_month)` columns and `r nrow(pols_month)` observations. Besides, this dataset has `r ncol(pols_month)` variables. 
 
+The dataset "snp_data" contains the data from "snp.csv" file, collectiong data from `r range(snp_data$year)` This data has `r nrow(snp_data)` rows, `r ncol(snp_data)` columns and `r nrow(snp_data)` observations. Besides, this dataset has `r ncol(snp_data)` variables.
+
+The dataset "unemployment_data" contains the data from "unemployment.csv" file, collectiong data from `r range(unemployment_data$year)` This data has `r nrow(unemployment_data)` rows, `r ncol(unemployment_data)` columns and `r nrow(unemployment_data)` observations. Besides, this dataset has `r ncol(unemployment_data)` variables.
+
+The dataset "merge_data_new" combines the data from "pols-month.csv", "unemployment.csv" and "snp.csv" file, collectiong data from `r range(merge_data_new$year)`. The names of key cariables when merge the three datasets are "year" and "month". This data has `r nrow(merge_data_new)` rows, `r ncol(merge_data_new)` columns and `r nrow(merge_data_new)` observations. Besides, this dataset has `r ncol(merge_data_new)` variables.
