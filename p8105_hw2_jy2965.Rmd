@@ -122,6 +122,7 @@ olivia_table = filter(popular_name, childs_first_name %in% "Olivia") %>%
 pivot_wider(
   names_from = "year_of_birth", 
   values_from = "rank")
+knitr::kable(olivia_table)
 ```
 
 **the most popular name among male children over time.**
@@ -131,6 +132,7 @@ top_name = filter(popular_name, rank == 1 & gender == "MALE") %>%
   pivot_wider(
   names_from = "year_of_birth", 
   values_from = "childs_first_name")
+knitr::kable(top_name)
 ```
 
 **Scatter plot**
@@ -139,7 +141,6 @@ for male, white non-hispanic children born in 2016, produce a scatter plot showi
 plot_table = filter(popular_name, gender == "MALE" & ethnicity == "WHITE NON HISP" & year_of_birth == 2016)
 ggplot(plot_table, aes(x = rank, y = count)) + 
   geom_point()
-
 ```
 
 
