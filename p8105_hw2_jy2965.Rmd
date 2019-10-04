@@ -104,3 +104,17 @@ The dataset "snp_data" contains the data from "snp.csv" file, collectiong data f
 The dataset "unemployment_data" contains the data from "unemployment.csv" file, collectiong data from `r range(unemployment_data$year)` This data has `r nrow(unemployment_data)` rows, `r ncol(unemployment_data)` columns and `r nrow(unemployment_data)` observations. Besides, this dataset has `r ncol(unemployment_data)` variables.
 
 The dataset "merge_data_new" combines the data from "pols-month.csv", "unemployment.csv" and "snp.csv" file, collectiong data from `r range(merge_data_new$year)`. The names of key cariables when merge the three datasets are "year" and "month". This data has `r nrow(merge_data_new)` rows, `r ncol(merge_data_new)` columns and `r nrow(merge_data_new)` observations. Besides, this dataset has `r ncol(merge_data_new)` variables.
+
+##Problem 3
+**import and tidy data**
+```{r}
+popular_name = read_csv(file = "./data/Popular_Baby_Names.csv") %>% janitor::clean_names() %>% 
+distinct() %>% 
+
+```
+
+
+
+
+
+
